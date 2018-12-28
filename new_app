@@ -1,0 +1,40 @@
+#!/usr/local/bin/php715
+<?php
+define('DS', DIRECTORY_SEPARATOR);
+define('RootPath', dirname(__FILE__));      // 项目根路径
+
+function _main_new_app($app_name = ''){
+	$path = RootPath.DS.'vendor'.DS."templet";
+	$file = scandir($path);
+	unset($file[0]);
+	unset($file[1]);
+	unset($file[2]);
+	$app_name = str_replace("\n","",$app_name);
+	$app_path = RootPath.DS."apps".DS.$app_name;
+	if (!is_dir($app_path)) {
+		exec("mkdir {$app_path}");
+	}
+	foreach ($file as $key => $value) {
+		$t_app_path = $path.DS.$value;
+		$t_file = scandir($t_app_path);
+		$t_file_path = $t_app_path.DS.$t_file[2];
+		$t_app_file_info = file_get_contents($t_file_path);
+		$t_app_file_info = sprintf($t_app_file_info,"<",$app_name);
+		$app_info_path = $app_path.DS.$value;
+		if (!is_dir($app_info_path)) {
+			exec("mkdir {$app_info_path}");
+		}
+		file_put_contents($app_info_path.DS.$t_file[2],$t_app_file_info);
+	}
+	exec("chmod -R 777 {$app_path}");
+	$cmd = "cd ".RootPath." && ./file_up ";
+	exec("{$cmd}");
+	$route_cfg_path = RootPath.DS."routes/route_cfg.php";
+	$route_cfg_info = file_get_contents($route_cfg_path);
+	$route_cfg_data = str_replace("\nMacaw::dispatch();","",$route_cfg_info);
+	$route_cfg_data = $route_cfg_data."\nMacaw::get('app_{$app_name}', '{$app_name}\IndexController@index');\nMacaw::dispatch();";
+	file_put_contents($route_cfg_path,$route_cfg_data);
+}
+
+fwrite(STDOUT,'新建应用:');
+_main_new_app(fgets(STDIN));

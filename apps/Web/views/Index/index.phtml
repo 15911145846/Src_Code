@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>陪你ら不孤单゛</title>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="resource/web/css/app.css">
+<script src="resource/web/js/jquery.min.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="resource/web/css/viewer.min.css">
+<script src="resource/web/js/viewer.min.js"></script>
+
+</head>
+<body>
+	<!-- 背景图 -->
+	<div style="margin:0 auto;display:none;">
+		<img class="data-avt" src="resource/web/images/0.png">
+	</div>
+	<!-- 背景图2 -->
+	<header>
+		<img id="bg" src="resource/web/images/timg.jpg">
+		<p id="user-name" class="data-name">陪你ら不孤单゛</p>
+		<img id="avt" class="data-avt" src="resource/web/images/0.png">
+	</header>
+	<!-- 主页 -->
+	<div id="main">
+		<div id="list">
+			<ul id="jq22">
+				{% for val in data %}
+
+					<li>
+						<div class="po-avt-wrap">
+							<img class="po-avt data-avt" src="resource/web/images/0.png">
+						</div>
+						<div class="po-cmt">
+							<div class="po-hd">
+								<p class="po-name"><span class="data-name">陪你ら不孤单゛</span></p>
+								<div class="post">
+									<p>{{ val.content }}</p>
+									<p>
+										{% if val.ArticleImgInfo %}
+											{% for v in val.ArticleImgInfo %}
+												<img class="list-img data-avt" src="{{ v.img_url }}" style="height: 80px;">
+												<!-- resource/web/images/0.png -->
+											{% endfor %}
+										{% endif %}
+									</p>
+								</div>
+								<p class="time">{{ val.create_time }}</p><!-- <img class="c-icon" src="images/c.png"> -->
+							</div>
+
+							<!-- <div class="r"></div> -->
+							<!-- <div class="cmt-wrap">
+								<div class="like"><img src="images/l.png">苍井空，陈冠希，杨幂，王思聪，陈赫，刘德华，马云...</div>
+								<div class="cmt-list">
+									<p><span>wu世勋-EXO：</span>나는 서명～</p>
+									<p><span>鹿晗：</span>我们在国内冻成狗，我也想跟哥您去热热～</p>
+									<p><span>权志龙：</span>나는 서명～</p>
+									<p><span>王思聪：</span>去哪玩啊？那么爽</p>
+									<p>
+										<span class="data-name">某某科技~贾素杰</span>
+										回复
+										<span>王思聪</span>
+										<span>：</span>
+										澳洲大堡礁，这边刚好是夏季，挺适合避寒的。
+									</p>
+									<p><span>杨幂：</span>😘私人飞机出行，求带上我～</p>
+								</div>
+							</div> -->
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+	</div>
+
+
+
+<script type="text/javascript">
+
+	function gotoplay(scene) {
+		var gourl = "/act/pengYouQuan/my.php?sv=" + scene;
+		location.href = gourl;
+	}
+	function safetostring(str) {
+		return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+	}
+
+	//$("#list").html($("#scene").html());
+
+	setTimeout(function () {
+		// $(".data-name").text(safetostring(nickname));
+		//$(".data-avt").attr("src", headimgurl);
+		var cw = $('.list-img').width();
+		$('.list-img').css({'height': cw + 'px'});
+	}, 0);
+
+	$(window).resize(function () {
+		var cw = $('.list-img').width();
+		$('.list-img').css({'height': cw + 'px'});
+	});
+
+
+	$(document.body).show();
+
+
+	function hideActionSheet(weuiActionsheet, mask) {
+		weuiActionsheet.removeClass('weui_actionsheet_toggle');
+		mask.removeClass('weui_fade_toggle');
+		weuiActionsheet.on('transitionend', function () {
+			mask.hide();
+		}).on('webkitTransitionEnd', function () {
+			mask.hide();
+		})
+	}
+	function showActionSheet() {
+		var mask = $('#mask');
+		var weuiActionsheet = $('#weui_actionsheet');
+		weuiActionsheet.addClass('weui_actionsheet_toggle');
+		mask.show().addClass('weui_fade_toggle').click(function () {
+			hideActionSheet(weuiActionsheet, mask);
+		});
+		$('#actionsheet_cancel').click(function () {
+			hideActionSheet(weuiActionsheet, mask);
+		});
+		weuiActionsheet.unbind('transitionend').unbind('webkitTransitionEnd');
+	}
+	// $('#list').not(".noplayimg").on('click', function () {
+	// 	showActionSheet();
+	// });
+	// $('img').not(".noplayimg").on('click', function (e) {
+	// 	showActionSheet();
+	// });
+
+	$('.play_pyq').on('click', function () {
+		var scene = $(this).data("scene");
+		gotoplay(scene);
+	});
+
+	var viewer = new Viewer(document.getElementById('jq22'), {
+		toolbar: false,
+		url: 'data-original'
+
+	});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+    "require": {
+        "sebastian/diff": "^1.4",
+        "monolog/monolog": "^1.23",
+        "joomla/input": "^1.2",
+        "gargron/fileupload": "^1.4",
+        "qcloud/cos-sdk-v5": ">=1.0",
+        "phpqrcode/phpqrcode": "dev-master",
+        "zgldh/qiniu-laravel-storage": "^0.9.2",
+        "txthinking/mailer": "^2.0",
+        "latrell/alipay": "dev-master",
+        "aliyuncs/oss-sdk-php": "^2.3",
+        "beyosoft/multiworker": "^1.1",
+        "rareloop/router": "^3.0",
+        "xaboy/form-builder": "^1.1",
+        "illuminate/database": "^5.6",
+        "illuminate/http": "^5.6",
+        "illuminate/cookie": "^5.6",
+        "illuminate/session": "^5.6",
+        "illuminate/events": "^5.6",
+        "twig/twig" : "^2.4",
+        "illuminate/log": "^5.6",
+        "phroute/phroute": "^2.1",
+        "mpdf/mpdf": "^7.1"
+    },
+    "autoload": {
+		"classmap": [
+			"apps",
+			"system",
+            "classlib"
+		]
+	}
+}
